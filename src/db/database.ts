@@ -1,9 +1,19 @@
 import { Dialect, Sequelize } from "sequelize";
-require("dotenv").config();
+import dotenv from "dotenv";
 
-const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_DIALECT } = process.env;
+dotenv.config();
 
-if (!DB_NAME || !DB_USER || !DB_PASSWORD || !DB_HOST || DB_DIALECT) {
+const { DB_NAME, DB_USER, DB_PASSWORD, DB_HOST, DB_DIALECT, DB_PORT } =
+  process.env;
+
+if (
+  !DB_NAME ||
+  !DB_USER ||
+  !DB_PASSWORD ||
+  !DB_HOST ||
+  !DB_DIALECT ||
+  !DB_PORT
+) {
   throw new Error(
     "Database configuration not fully set in environment variables."
   );
@@ -12,18 +22,24 @@ if (!DB_NAME || !DB_USER || !DB_PASSWORD || !DB_HOST || DB_DIALECT) {
 const sequelize = new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
   host: DB_HOST,
   dialect: DB_DIALECT as Dialect,
+//   port: parseInt(DB_PORT),
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000,
+  },
 });
 
 const testConnection = async () => {
   try {
     await sequelize.authenticate();
+    await sequelize.sync({ alter: true });
     console.log("Connection has been established successfully.");
   } catch (error) {
     console.error("Unable to connect to the database:", error);
     process.exit(1);
   }
 };
-
-testConnection();
 
 export default sequelize;

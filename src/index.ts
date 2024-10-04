@@ -1,14 +1,39 @@
 import express from "express";
-import http from "http";
-import bodyParser from "body-parser";
 import dotenv from "dotenv";
+
+import sequelize from "./db/database";
+import errorHandler from "./middleware/errorHandler";
+import bookRoutes from "./routes/bookRoutes";
+
+dotenv.config();
 
 const app = express();
 
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const server = http.createServer(app);
+app.use(bookRoutes);
 
-server.listen(3000, () => {
-  console.log("The server running on http://localhost:3000/");
-});
+app.use(errorHandler);
+
+const startServer = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Database connection has been established successfully.");
+
+    await sequelize.sync({ alter: true, force: true }); // alter true for development use only || use force: true when to model to be recreate
+    console.log("All models were synchronized successfully.");
+
+    const PORT = process.env.PORT || 3000;
+    app.listen(PORT, () => {
+      console.log(`The server is running on http://localhost:${PORT}/`);
+    });
+  } catch (error) {
+    console.error("Unable to connect to database: ", error);
+    process.exit(1);
+  }
+};
+
+startServer();
+
+export default app;
