@@ -21,7 +21,7 @@ const startServer = async () => {
     await sequelize.authenticate();
     console.log("Database connection has been established successfully.");
 
-    await sequelize.sync({ alter: true, force: true }); // alter true for development use only || use force: true when to model to be recreate
+    await sequelize.sync({ alter: true }); // alter true for development use only || use force: true when to model to be recreate
     console.log("All models were synchronized successfully.");
 
     const PORT = process.env.PORT || 3000;
