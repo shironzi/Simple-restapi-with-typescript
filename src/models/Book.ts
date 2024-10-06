@@ -52,13 +52,13 @@ Book.init(
   },
   {
     tableName: "books",
-    sequelize, // passing the `sequelize` instance is required
-    timestamps: true, // enables createdAt and updatedAt
+    sequelize,
+    timestamps: true,
   }
 );
 
 (async () => {
-  await sequelize.sync({force: true});
+  await sequelize.sync();
 })();
 
 export default Book;

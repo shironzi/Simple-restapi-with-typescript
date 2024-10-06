@@ -65,7 +65,7 @@ export const createBook = async (
 };
 
 export const updateBook = async (
-  req: Request,
+  req: Request<{id: string}>,
   res: Response<BookResponse | ErrorResponse>,
   next: NextFunction
 ) => {
@@ -75,7 +75,7 @@ export const updateBook = async (
     const book = await Book.findByPk(id);
 
     if(!book){
-      return res.status(404).json({
+      res.status(404).json({
         message: `Book with id ${id} not found.`,
       })
     }
@@ -99,8 +99,8 @@ export const updateBook = async (
     res.status(200).json({
       message: "Book was updated successfully",
       book: book,
-    }).end();
-    
+    });
+
   } catch (error) {
     console.error("unexpected occurred during updateBook: ", error);
   }
