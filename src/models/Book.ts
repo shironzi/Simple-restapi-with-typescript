@@ -3,6 +3,12 @@
 import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../db/database";
 
+export interface UpdateBookRequest {
+  title?: string;
+  author?: string;
+  description?: string;
+}
+
 // Define the attributes interface
 interface BookAttributes {
   id: number;
