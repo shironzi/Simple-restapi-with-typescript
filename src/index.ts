@@ -12,10 +12,6 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(bookRoutes);
-
-app.use(errorHandler);
-
 const startServer = async () => {
   try {
     await sequelize.authenticate();
@@ -35,5 +31,9 @@ const startServer = async () => {
 };
 
 startServer();
+
+app.use('/book', bookRoutes);
+
+app.use(errorHandler);
 
 export default app;

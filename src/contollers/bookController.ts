@@ -63,3 +63,15 @@ export const createBook = async (
     });
   }
 };
+
+export const updateBook = async (
+  req: Request,
+  res: Response <BookResponse | ErrorResponse>,
+  next: NextFunction
+) => {
+  try {
+
+  }catch (error){
+    console.error("unexpected occurred during updateBook: ", error);
+  }
+}
