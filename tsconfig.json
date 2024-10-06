@@ -9,4 +9,5 @@
     "noImplicitAny": true
   },
   "include": ["src/**/*"], // to get the all source folder then all files in each folder
+  "exclude": ["node_modules"] 
 }

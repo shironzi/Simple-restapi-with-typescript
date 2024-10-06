@@ -58,7 +58,7 @@ Book.init(
 );
 
 (async () => {
-  await sequelize.sync({alter: true});
+  await sequelize.sync({force: true});
 })();
 
 export default Book;
