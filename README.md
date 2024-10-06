@@ -1,4 +1,4 @@
-**﻿# Simple-restapi-with-typescript**
+﻿# Simple-restapi-with-typescript
 A RESTful API built with Express.js, TypeScript, and Sequelize for managing a collection of books. This API allows users to perform CRUD (Create, Read, Update, Delete) operations on books, ensuring robust error handling, input validation, and structured logging.
 
 **Features**
@@ -26,13 +26,13 @@ Before you begin, ensure you have met the following requirements:
 Environment Variables:
 Create a .env file in the root directory of the project and add the following environment variables:
 
-# Server Configuration
+Server Configuration
 PORT=3000
 
-# Database Configuration
+Database Configuration
 DB_NAME=your_database_name
 DB_USER=your_database_user
 DB_PASSWORD=your_database_password
 DB_HOST=localhost
-DB_DIALECT=postgres
-DB_PORT=5432
+DB_DIALECT=mysql
+DB_PORT=3306
